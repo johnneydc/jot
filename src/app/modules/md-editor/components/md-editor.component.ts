@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, ElementRef, forwardRef, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, Output, ViewChild} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {Subject} from 'rxjs';
-import {first} from 'rxjs/operators';
+import {Subject, fromEvent} from 'rxjs';
+import {debounceTime, first} from 'rxjs/operators';
 
 @Component({
   selector: 'md-editor',
@@ -21,6 +21,9 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
 
   @ViewChild('editable', {static: false})
   private readonly editor!: ElementRef<HTMLDivElement>;
+
+  @Output()
+  idle: EventEmitter<void> = new EventEmitter<void>();
 
   value$: Subject<string> = new Subject<string>();
   onChange: (_: any) => void = (_: any) => {};
@@ -73,6 +76,12 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
         this.editor.nativeElement.focus();
       }
     }, { passive: false });
+
+    fromEvent(this.editor.nativeElement, 'keyup')
+      .pipe(debounceTime(1000))
+      .subscribe(() => {
+        this.idle.emit();
+      });
 
     this.setCaretPosition();
   }

@@ -1,2 +1,1 @@
-<button (click)="displayValue()">display value</button>
-<jot-editor [jot]="activeJot"></jot-editor>
+<jot-editor [saved]="saved" (idle)="saveCurrentJot()" [jot]="activeJot"></jot-editor>

@@ -1,0 +1,9 @@
+<div class="layout">
+  <div class="header">
+    <span class="saving-icon">
+      <input type="checkbox" [checked]="saved">
+    </span>
+    <input [(ngModel)]="jot.meta.title" type="text" />
+  </div>
+  <md-editor (idle)="hasBeenIdle()" [(ngModel)]="jot.content.body"></md-editor>
+</div>

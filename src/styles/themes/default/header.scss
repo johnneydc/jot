@@ -1,13 +1,20 @@
 .header {
   height: 40px;
+  display: flex;
+  align-items: center;
 }
 
-.header input {
+.saving-icon {
+  padding-right: 4px;
+  pointer-events: none;
+}
+
+.header input[type=text] {
   width: 100%; height: 100%;
   background: none;
   box-sizing: border-box;
   border: none;
-  font-size: 15pt;
+  font-size: 12pt;
   border: 0;
   border-bottom: 1px solid transparent;
   font-family: 'Cousine', monospace;

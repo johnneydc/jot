@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Jot} from './modules/jot-editor/models/jot';
+import {Jot} from './modules/jot/model/jot';
+import {JotRepository} from './modules/jot/repository/jot.repository';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +10,20 @@ import {Jot} from './modules/jot-editor/models/jot';
 export class AppComponent implements OnInit {
 
   activeJot: Jot;
+  saved = false;
+
+  constructor(
+    private readonly jotRepository: JotRepository
+  ) { }
+
 
   ngOnInit() {
     this.activeJot = Jot.ForNow();
   }
 
-  displayValue() {
-    console.log(this.activeJot);
+  async saveCurrentJot() {
+    this.saved = false;
+    await this.jotRepository.save(this.activeJot);
+    this.saved = true;
   }
 }

@@ -1,16 +1,21 @@
 import {formatDate} from '@angular/common';
+import {Model} from '../../core/repository/model';
+import {v4} from 'uuid';
 
-export class Jot {
+export class Jot extends Model {
+
+  id: string;
   meta: JotMeta;
   content: JotContent;
 
-  constructor(meta: JotMeta, content: JotContent) {
+  constructor(id: string, meta: JotMeta, content: JotContent) {
+    super(id);
     this.meta = meta;
     this.content = content;
   }
 
   static ForNow() {
-    return new Jot(JotMeta.ForNow(), { body: '' });
+    return new Jot(v4(), JotMeta.ForNow(), { body: '' });
   }
 }
 
