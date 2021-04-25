@@ -1,14 +1,11 @@
 # Jot
+[![Netlify Status](https://api.netlify.com/api/v1/badges/03421c3b-cfe5-42b6-b4b8-fd358c654bc2/deploy-status)](https://app.netlify.com/sites/vibrant-beaver-a67b6b/deploys)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.23.
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Build
 
