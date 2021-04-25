@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Cousine:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+@import "layout";
+@import "header";
+@import "editor";
+
+body {
+  background: #m;
+  height: 100vh;
+  width: 100vw;
+  font-size: 10pt;
+}
+
+* {
+  color: #ddd;
+}
+
+.header, .rt-editor-input {
+  width: 100%;
+}
