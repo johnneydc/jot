@@ -3,14 +3,14 @@
 }
 
 .header input {
-  width: 100%;
+  width: 100%; height: 100%;
   background: none;
   box-sizing: border-box;
   border: none;
-  font-size: 20pt;
+  font-size: 15pt;
   border: 0;
   border-bottom: 1px solid transparent;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Cousine', monospace;
   font-weight: 600;
 
   &:focus {
