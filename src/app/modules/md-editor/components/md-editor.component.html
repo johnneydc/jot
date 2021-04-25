@@ -1,2 +1,4 @@
-<div #editable class="rt-editor-input" contenteditable="true" [innerHTML]="content">
+<div #editable class="rt-editor-input"
+     contenteditable="true"
+    (keyup)="updateChanges()">
 </div>

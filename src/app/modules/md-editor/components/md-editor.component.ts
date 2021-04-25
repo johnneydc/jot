@@ -1,4 +1,7 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, forwardRef, ViewChild} from '@angular/core';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {Subject} from 'rxjs';
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'md-editor',
@@ -7,38 +10,61 @@ import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewC
     .rt-editor-input {
       white-space: pre-wrap;
     }
-  `]
+  `],
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => MdEditorComponent),
+    multi: true
+  }]
 })
-export class MdEditorComponent implements AfterViewInit {
-
-  @Input()
-  content: string;
-
-  @Output()
-  contentChange: EventEmitter<string> = new EventEmitter<string>();
+export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
 
   @ViewChild('editable', {static: false})
   private readonly editor!: ElementRef<HTMLDivElement>;
 
+  value$: Subject<string> = new Subject<string>();
+  onChange: (_: any) => void = (_: any) => {};
+  onTouched: () => void = () => {};
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  writeValue(obj: string): void {
+    const stringVal = obj || '';
+    this.value$.next(obj || '');
+    this.updateChanges(stringVal);
+  }
+
+  updateChanges(val = null) {
+    if (this.editor === undefined) {
+      this.onChange(val);
+    } else {
+      this.onChange(this.editor.nativeElement.innerHTML);
+    }
+  }
+
   ngAfterViewInit() {
+    this.value$.asObservable()
+      .pipe(first())
+      .subscribe(val => {
+        this.editor.nativeElement.innerHTML = val.toString();
+        this.setCaretPosition();
+      });
+
     this.editor.nativeElement.addEventListener('paste', ev => {
-      // cancel paste
       ev.preventDefault();
-
-      // get text representation of clipboard
       const text = ev.clipboardData.getData('text/plain');
-
-      // insert text manually
       document.execCommand('insertHTML', false, text);
     }, { passive: false });
 
     this.editor.nativeElement.addEventListener('focus', ev => {
       this.setCaretPosition();
     });
-
-    this.editor.nativeElement.addEventListener('keyup', ev => {
-      this.contentChange.emit(this.editor.nativeElement.innerHTML);
-    }, { passive: true });
 
     this.editor.nativeElement.addEventListener('keydown', ev => {
       if (ev.key === 'Tab') {
