@@ -1,12 +1,12 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
-import {MdEditorModule} from './modules/md-editor/md-editor.module';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {environment} from '../environments/environment';
 import {ReactiveFormsModule} from '@angular/forms';
+import {JotEditorModule} from './modules/jot-editor/jot-editor.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
 
-    MdEditorModule,
+    JotEditorModule,
     ReactiveFormsModule
   ],
   providers: [],

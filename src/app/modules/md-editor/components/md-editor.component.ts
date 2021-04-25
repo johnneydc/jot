@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'md-editor',
@@ -10,6 +10,12 @@ import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
   `]
 })
 export class MdEditorComponent implements AfterViewInit {
+
+  @Input()
+  content: string;
+
+  @Output()
+  contentChange: EventEmitter<string> = new EventEmitter<string>();
 
   @ViewChild('editable', {static: false})
   private readonly editor!: ElementRef<HTMLDivElement>;
@@ -31,12 +37,8 @@ export class MdEditorComponent implements AfterViewInit {
     });
 
     this.editor.nativeElement.addEventListener('keyup', ev => {
-      const el = ev.target as HTMLDivElement;
-
-      if (ev.code === 'Space') {
-        // this.setCaretPosition();
-      }
-    });
+      this.contentChange.emit(this.editor.nativeElement.innerHTML);
+    }, { passive: true });
 
     this.editor.nativeElement.addEventListener('keydown', ev => {
       if (ev.key === 'Tab') {
