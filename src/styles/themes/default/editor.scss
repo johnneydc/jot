@@ -1,0 +1,12 @@
+.rt-editor-input {
+  font-family: 'Cousine', monospace;
+  padding: 16px 0;
+  box-sizing: border-box;
+  height: calc(100vh - 60px);
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  &:focus {
+    outline: none;
+  }
+}

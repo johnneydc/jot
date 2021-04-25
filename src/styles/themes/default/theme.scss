@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Cousine&display=swap');
+
+@import "layout";
+@import "header";
+@import "editor";
+
+body {
+  background: #eee;
+  height: 100vh;
+  width: 100vw;
+}
+
+* {
+  color: #3b3b3b;
+}
+
+.header, .rt-editor-input {
+  width: 100%;
+}
+
