@@ -1,8 +1,8 @@
 {
-  "name": "jot",
-  "short_name": "jot",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "name": "Jot | Simple, fast note taking app",
+  "short_name": "Jot",
+  "theme_color": "#eeeeee",
+  "background_color": "#eeeeee",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
