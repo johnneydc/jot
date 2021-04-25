@@ -10,7 +10,7 @@ import {JotModule} from './modules/jot/jot.module';
 import {CoreModule} from './modules/core/core.module';
 import {IdbService} from './modules/core/services/idb.service';
 
-function initApp(idbService: IdbService) {
+export function initApp(idbService: IdbService) {
   return (): Promise<any> => {
     return idbService.initialize();
   };
