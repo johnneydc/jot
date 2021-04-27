@@ -16,7 +16,17 @@ export class JotEditorComponent {
   @Output()
   idle: EventEmitter<void> = new EventEmitter<void>();
 
+  @Output()
+  isTemporaryToggled: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  isTemporary = false;
+
   hasBeenIdle() {
     this.idle.emit();
+  }
+
+  toggleTemporary() {
+    this.isTemporary = !this.isTemporary;
+    this.isTemporaryToggled.emit(this.isTemporary);
   }
 }

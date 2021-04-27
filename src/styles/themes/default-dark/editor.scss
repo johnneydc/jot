@@ -1,11 +1,10 @@
 .rt-editor-input {
-  font-family: 'Cousine', monospace;
   padding: 16px 8px 16px 24px;
   box-sizing: border-box;
   height: calc(100vh - 70px);
   overflow-x: hidden;
   overflow-y: scroll;
-  font-size: 10pt;
+  font-size: 14px;
   line-height: 1.5;
 
   &:focus {

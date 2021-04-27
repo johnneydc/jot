@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cousine:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 @import "layout";
 @import "header";
@@ -9,11 +9,11 @@ body {
   height: 100vh;
   width: 100vw;
   font-size: 10pt;
-  font-family: 'Cousine', monospace;
+  font-family: 'Work Sans', monospace;
 }
 
 * {
-  color: #ddd;
+  color: #dddddd;
 }
 
 .header, .rt-editor-input {

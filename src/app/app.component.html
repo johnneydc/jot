@@ -1,1 +1,8 @@
-<jot-editor [saved]="saved" (idle)="saveCurrentJot()" [jot]="activeJot"></jot-editor>
+<jot-editor #editor
+    [jot]="activeJot"
+
+    [saved]="saved"
+    (idle)="saveCurrentJot()"
+
+    (isTemporaryToggled)="toggleTemporary()">
+</jot-editor>
