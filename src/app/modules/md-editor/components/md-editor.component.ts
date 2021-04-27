@@ -3,6 +3,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {fromEvent, Subject} from 'rxjs';
 import {debounceTime, first} from 'rxjs/operators';
 import {toBase64} from '../../core/utils/base64';
+import {isValidHttpUrl} from '../../core/utils/isUrl';
 
 @Component({
   selector: 'md-editor',
@@ -71,7 +72,11 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
 
       if (!MdEditorComponent.canBeAnImage(ev.clipboardData)) {
         ev.preventDefault();
-        const text = ev.clipboardData.getData('text/plain');
+        let text = ev.clipboardData.getData('text/plain');
+
+        if (isValidHttpUrl(text)) {
+          text = `<a contenteditable="false" href="${text}" target="_blank">${text}</a>`;
+        }
 
         document.execCommand('insertHTML', false, text);
       } else {
@@ -80,6 +85,8 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
 
         document.execCommand('insertHTML', false, `<img src="${base64Img}" />`);
       }
+      
+      this.setCaretPosition();
     }, { passive: false });
 
     this.editor.nativeElement.addEventListener('focus', ev => {
