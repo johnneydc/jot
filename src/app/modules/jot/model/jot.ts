@@ -1,6 +1,5 @@
 import {formatDate} from '@angular/common';
 import {Model} from '../../core/repository/model';
-import {v4} from 'uuid';
 
 export class Jot extends Model {
 
@@ -14,8 +13,8 @@ export class Jot extends Model {
     this.content = content;
   }
 
-  static ForNow() {
-    return new Jot(v4(), JotMeta.ForNow(), { body: '' });
+  static New() {
+    return new Jot(null, JotMeta.ForNow(), { body: '' });
   }
 }
 

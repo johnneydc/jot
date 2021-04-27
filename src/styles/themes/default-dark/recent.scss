@@ -49,6 +49,10 @@
   cursor: pointer;
 
   &:hover {
+    .recent-jots--list-item--title {
+      color: mediumaquamarine;
+    }
+
     background: rgba(0, 0, 0, 0.1);
   }
 }
@@ -57,11 +61,13 @@
 .recent-jots--list-item--title {
   font-weight: 700;
   margin-bottom: 4px;
+  line-height: 1;
 }
 
 .recent-jots--list-item--body {
   overflow: hidden;
   white-space: nowrap;
+  margin-bottom: 4px;
 }
 
 .recent-jots--list-item--date-modified {

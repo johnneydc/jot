@@ -1,7 +1,7 @@
-<div class="recent-jots--container" [class.shown]="shown">
+<div class="recent-jots--container" [class.shown]="shown" (click)="hideDialog($event)">
   <div class="recent-jots--dialog">
     <div class="recent-jots--search">
-      <input class="recent-jots--search-input" type="text" placeholder="Search...">
+      <input #searchInput class="recent-jots--search-input" type="text" placeholder="Search...">
     </div>
     <div class="recent-jots--list">
       <div (click)="emitSelected(jot)" *ngFor="let jot of recentJots" class="recent-jots--list-item">
