@@ -51,11 +51,13 @@
   background: transparent;
   border: 1px solid #555;
   border-radius: 4px;
-  padding: 4px 8px;
+  padding: 2px 4px;
   color: #555;
+  font-size: 12px;
 }
 
 .tmp-toggle-btn.checked {
-  border-color: #26A69A;
-  color: #26A69A;
+  border-color: mediumaquamarine;
+  color: #ffffff;
+  background: mediumaquamarine;
 }

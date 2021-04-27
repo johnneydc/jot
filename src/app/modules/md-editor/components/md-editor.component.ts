@@ -30,7 +30,8 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
   value$: Subject<string> = new Subject<string>();
 
   static canBeAnImage(clipboardData: DataTransfer) {
-    return clipboardData.types.includes('Files') && clipboardData.types.includes('text/html');
+    return (clipboardData.types.includes('Files') && clipboardData.types.includes('text/html'))
+      || (clipboardData.types.includes('Files') && clipboardData.files.item(0).type === 'image/png');
   }
 
   onChange: (_: any) => void = (_: any) => {};
@@ -85,7 +86,7 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
 
         document.execCommand('insertHTML', false, `<img src="${base64Img}" />`);
       }
-      
+
       this.setCaretPosition();
     }, { passive: false });
 
