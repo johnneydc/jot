@@ -3,7 +3,10 @@
     <span class="saving-icon">
       <input type="checkbox" [checked]="saved">
     </span>
-    <input [(ngModel)]="jot.meta.title" type="text" />
+    <input class="title-input" [(ngModel)]="jot.meta.title" type="text" />
+    <div class="date-modified-display">
+      Modified {{ jot.meta.dateModified | relativeTime }}
+    </div>
   </div>
   <md-editor (idle)="hasBeenIdle()" [(ngModel)]="jot.content.body"></md-editor>
 </div>
