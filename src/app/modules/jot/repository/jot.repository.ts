@@ -26,6 +26,14 @@ export class JotRepository extends Repository<Jot, AppDB> {
     store.createIndex('by-title', 'meta.title');
   }
 
+  public async findByRecent(size = 10) {
+    const recentJots = await this.idb.getAllFromIndex(this.storeName(), 'by-recent');
+    return recentJots
+      // @ts-ignore
+      .sort((a, b) => b.meta.dateModified - a.meta.dateModified)
+      .slice(0, size);
+  }
+
   protected deserialize(obj: Partial<Jot> | undefined): Jot {
     return undefined;
   }

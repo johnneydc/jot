@@ -13,5 +13,9 @@
       </button>
     </div>
   </div>
-  <md-editor (idle)="hasBeenIdle()" [(ngModel)]="jot.content.body"></md-editor>
+  <md-editor
+    (idle)="hasBeenIdle()"
+    (keyboardShortcut)="processShortcut($event)"
+    [(ngModel)]="jot.content.body"
+  ></md-editor>
 </div>

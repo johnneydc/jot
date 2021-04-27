@@ -27,6 +27,9 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
   @Output()
   idle: EventEmitter<void> = new EventEmitter<void>();
 
+  @Output()
+  keyboardShortcut: EventEmitter<string> = new EventEmitter<string>();
+
   value$: Subject<string> = new Subject<string>();
 
   static canBeAnImage(clipboardData: DataTransfer) {
@@ -61,16 +64,12 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
 
   ngAfterViewInit() {
     this.value$.asObservable()
-      .pipe(first())
       .subscribe(val => {
         this.editor.nativeElement.innerHTML = val.toString();
         this.setCaretPosition();
       });
 
     this.editor.nativeElement.addEventListener('paste', async ev => {
-      console.log(ev.clipboardData.types);
-      console.log(ev.clipboardData.files);
-
       if (!MdEditorComponent.canBeAnImage(ev.clipboardData)) {
         ev.preventDefault();
         let text = ev.clipboardData.getData('text/plain');
@@ -100,6 +99,10 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
         document.execCommand('insertHTML', false, '&nbsp;&nbsp;');
         this.editor.nativeElement.focus();
       }
+
+      if (ev.ctrlKey) {
+        this.emitKeyboardShortcut(ev);
+      }
     }, { passive: false });
 
     fromEvent(this.editor.nativeElement, 'keyup')
@@ -122,5 +125,16 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
     const sel = window.getSelection();
     sel.removeAllRanges();
     sel.addRange(range);
+  }
+
+  private emitKeyboardShortcut(ev: KeyboardEvent) {
+    const keys = [];
+
+    if (ev.ctrlKey) { keys.push('ctrl'); }
+    if (ev.shiftKey) { keys.push('shift'); }
+
+    keys.push(ev.key.toLowerCase());
+
+    this.keyboardShortcut.emit(keys.join('+'));
   }
 }

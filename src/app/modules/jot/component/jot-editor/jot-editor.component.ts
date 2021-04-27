@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Jot} from '../../model/jot';
+import {Command} from '../../shared/command';
 
 @Component({
   selector: 'jot-editor',
@@ -18,8 +19,10 @@ export class JotEditorComponent {
 
   @Output()
   isTemporaryToggled: EventEmitter<boolean> = new EventEmitter<boolean>();
-
   isTemporary = false;
+
+  @Output()
+  command: EventEmitter<Command> = new EventEmitter<Command>();
 
   hasBeenIdle() {
     this.idle.emit();
@@ -28,5 +31,11 @@ export class JotEditorComponent {
   toggleTemporary() {
     this.isTemporary = !this.isTemporary;
     this.isTemporaryToggled.emit(this.isTemporary);
+  }
+
+  processShortcut($event: string) {
+    if ($event === 'ctrl+shift+k') {
+      this.command.emit(Command.OPEN_RECENT);
+    }
   }
 }

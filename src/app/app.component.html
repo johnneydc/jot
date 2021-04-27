@@ -1,8 +1,12 @@
+<recent-jots #recents
+   (selected)="setActive($event)"
+></recent-jots>
 <jot-editor #editor
     [jot]="activeJot"
 
     [saved]="saved"
     (idle)="saveCurrentJot()"
 
-    (isTemporaryToggled)="toggleTemporary()">
-</jot-editor>
+    (isTemporaryToggled)="toggleTemporary()"
+    (command)="handleCommand($event)"
+></jot-editor>
