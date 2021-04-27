@@ -1,7 +1,8 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, Output, ViewChild} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {Subject, fromEvent} from 'rxjs';
+import {fromEvent, Subject} from 'rxjs';
 import {debounceTime, first} from 'rxjs/operators';
+import {toBase64} from '../../core/utils/base64';
 
 @Component({
   selector: 'md-editor',
@@ -26,6 +27,11 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
   idle: EventEmitter<void> = new EventEmitter<void>();
 
   value$: Subject<string> = new Subject<string>();
+
+  static canBeAnImage(clipboardData: DataTransfer) {
+    return clipboardData.types.includes('Files') && clipboardData.types.includes('text/html');
+  }
+
   onChange: (_: any) => void = (_: any) => {};
   onTouched: () => void = () => {};
 
@@ -59,10 +65,21 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
         this.setCaretPosition();
       });
 
-    this.editor.nativeElement.addEventListener('paste', ev => {
-      ev.preventDefault();
-      const text = ev.clipboardData.getData('text/plain');
-      document.execCommand('insertHTML', false, text);
+    this.editor.nativeElement.addEventListener('paste', async ev => {
+      console.log(ev.clipboardData.types);
+      console.log(ev.clipboardData.files);
+
+      if (!MdEditorComponent.canBeAnImage(ev.clipboardData)) {
+        ev.preventDefault();
+        const text = ev.clipboardData.getData('text/plain');
+
+        document.execCommand('insertHTML', false, text);
+      } else {
+        ev.preventDefault();
+        const base64Img = await toBase64(ev.clipboardData.files[0]);
+
+        document.execCommand('insertHTML', false, `<img src="${base64Img}" />`);
+      }
     }, { passive: false });
 
     this.editor.nativeElement.addEventListener('focus', ev => {

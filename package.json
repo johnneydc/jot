@@ -22,6 +22,7 @@
     "@angular/router": "~8.2.14",
     "@angular/service-worker": "~8.2.14",
     "idb": "^6.0.0",
+    "js-base64": "^3.6.0",
     "normalize.css": "^8.0.1",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
