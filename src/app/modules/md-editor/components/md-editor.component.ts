@@ -4,6 +4,18 @@ import {fromEvent, Subject} from 'rxjs';
 import {debounceTime, first} from 'rxjs/operators';
 import {toBase64} from '../../core/utils/base64';
 import {isValidHttpUrl} from '../../core/utils/isUrl';
+import {
+  boldSelection,
+  canBeAnImage,
+  canBeAUrl,
+  insertImage,
+  insertLink,
+  insertTab,
+  insertText,
+  italicizeSelection,
+  parseKeyboardShortcut
+} from './utils';
+import {ClipboardObject, ClipboardObjectType} from './models/ClipboardObject';
 
 @Component({
   selector: 'md-editor',
@@ -21,6 +33,8 @@ import {isValidHttpUrl} from '../../core/utils/isUrl';
 })
 export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
 
+  value$: Subject<string> = new Subject<string>();
+
   @ViewChild('editable', {static: false})
   private readonly editor!: ElementRef<HTMLDivElement>;
 
@@ -30,23 +44,19 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
   @Output()
   keyboardShortcut: EventEmitter<string> = new EventEmitter<string>();
 
-  value$: Subject<string> = new Subject<string>();
-
-  static canBeAnImage(clipboardData: DataTransfer) {
-    return (clipboardData.types.includes('Files') && clipboardData.types.includes('text/html'))
-      || (clipboardData.types.includes('Files') && clipboardData.files.item(0).type === 'image/png');
-  }
+  private readonly nativeEditorShortcuts: Map<string, (ev: KeyboardEvent) => void> = new Map<string, () => void>();
 
   onChange: (_: any) => void = (_: any) => {};
   onTouched: () => void = () => {};
 
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
+  constructor() {
+    this.nativeEditorShortcuts.set('ctrl+b', boldSelection);
+    this.nativeEditorShortcuts.set('ctrl+i', italicizeSelection);
+    this.nativeEditorShortcuts.set('tab', insertTab);
   }
 
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
+  registerOnChange(fn: any): void { this.onChange = fn; }
+  registerOnTouched(fn: any): void { this.onTouched = fn; }
 
   writeValue(obj: string): void {
     const stringVal = obj || '';
@@ -63,54 +73,8 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
   }
 
   ngAfterViewInit() {
-    this.value$.asObservable()
-      .subscribe(val => {
-        this.editor.nativeElement.innerHTML = val.toString();
-        this.setCaretPosition();
-      });
-
-    this.editor.nativeElement.addEventListener('paste', async ev => {
-      if (!MdEditorComponent.canBeAnImage(ev.clipboardData)) {
-        ev.preventDefault();
-        let text = ev.clipboardData.getData('text/plain');
-
-        if (isValidHttpUrl(text)) {
-          text = `<a contenteditable="false" href="${text}" target="_blank">${text}</a>`;
-        }
-
-        document.execCommand('insertHTML', false, text);
-      } else {
-        ev.preventDefault();
-        const base64Img = await toBase64(ev.clipboardData.files[0]);
-
-        document.execCommand('insertHTML', false, `<img src="${base64Img}" />`);
-      }
-
-      this.setCaretPosition();
-    }, { passive: false });
-
-    this.editor.nativeElement.addEventListener('focus', ev => {
-      this.setCaretPosition();
-    });
-
-    this.editor.nativeElement.addEventListener('keydown', ev => {
-      if (ev.key === 'Tab') {
-        ev.preventDefault();
-        document.execCommand('insertHTML', false, '&nbsp;&nbsp;');
-        this.editor.nativeElement.focus();
-      }
-
-      if (ev.ctrlKey) {
-        this.emitKeyboardShortcut(ev);
-      }
-    }, { passive: false });
-
-    fromEvent(this.editor.nativeElement, 'keyup')
-      .pipe(debounceTime(1000))
-      .subscribe(() => {
-        this.idle.emit();
-      });
-
+    this.setFirstValue();
+    this.listenForIdleness();
     this.setCaretPosition();
   }
 
@@ -127,14 +91,58 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
     sel.addRange(range);
   }
 
+  async handlePaste(ev: ClipboardEvent) {
+    ev.preventDefault();
+    const clipboardObj = new ClipboardObject(ev);
+
+    switch (clipboardObj.type) {
+      case ClipboardObjectType.IMAGE:
+        await insertImage(ev);
+        break;
+      case ClipboardObjectType.LINK:
+        await insertLink(ev);
+        break;
+      case ClipboardObjectType.TEXT:
+        await insertText(ev);
+        break;
+    }
+
+    this.setCaretPosition();
+  }
+
+  handleFocus(ev: FocusEvent) {
+    this.setCaretPosition();
+  }
+
+  handleKeydown(ev: KeyboardEvent) {
+    const shortcut = parseKeyboardShortcut(ev);
+
+    if (this.nativeEditorShortcuts.has(shortcut)) {
+      this.nativeEditorShortcuts.get(shortcut).apply(ev);
+    }
+
+    if (ev.ctrlKey) {
+      this.emitKeyboardShortcut(ev);
+    }
+  }
+
   private emitKeyboardShortcut(ev: KeyboardEvent) {
-    const keys = [];
+    this.keyboardShortcut.emit(parseKeyboardShortcut(ev));
+  }
 
-    if (ev.ctrlKey) { keys.push('ctrl'); }
-    if (ev.shiftKey) { keys.push('shift'); }
+  private listenForIdleness() {
+    fromEvent(this.editor.nativeElement, 'keyup')
+      .pipe(debounceTime(1000))
+      .subscribe(() => {
+        this.idle.emit();
+      });
+  }
 
-    keys.push(ev.key.toLowerCase());
-
-    this.keyboardShortcut.emit(keys.join('+'));
+  private setFirstValue() {
+    this.value$.asObservable()
+      .subscribe(val => {
+        this.editor.nativeElement.innerHTML = val.toString();
+        this.setCaretPosition();
+      });
   }
 }

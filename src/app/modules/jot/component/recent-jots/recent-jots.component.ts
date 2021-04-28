@@ -1,10 +1,6 @@
 import {ChangeDetectorRef, Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 import {Jot} from '../../model/jot';
 import {JotRepository} from '../../repository/jot.repository';
-import {library} from '@fortawesome/fontawesome-svg-core';
-import {faTrash} from '@fortawesome/free-solid-svg-icons/faTrash';
-
-library.add(faTrash);
 
 @Component({
   selector: 'recent-jots',
@@ -13,7 +9,7 @@ library.add(faTrash);
 export class RecentJotsComponent {
 
   recentJots: Jot[];
-  visible = true;
+  visible = false;
 
   @Output()
   selected: EventEmitter<Jot> = new EventEmitter<Jot>();
