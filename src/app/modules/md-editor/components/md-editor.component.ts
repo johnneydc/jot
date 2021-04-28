@@ -114,7 +114,7 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
     this.setCaretPosition();
   }
 
-  private setCaretPosition(atStart = false) {
+  setCaretPosition(atStart = false) {
     const el = this.editor.nativeElement;
 
     el.focus();

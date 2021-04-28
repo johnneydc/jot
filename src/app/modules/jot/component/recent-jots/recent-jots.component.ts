@@ -1,6 +1,10 @@
-import {ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 import {Jot} from '../../model/jot';
 import {JotRepository} from '../../repository/jot.repository';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {faTrash} from '@fortawesome/free-solid-svg-icons/faTrash';
+
+library.add(faTrash);
 
 @Component({
   selector: 'recent-jots',
@@ -9,10 +13,16 @@ import {JotRepository} from '../../repository/jot.repository';
 export class RecentJotsComponent {
 
   recentJots: Jot[];
-  shown = false;
+  visible = true;
 
   @Output()
   selected: EventEmitter<Jot> = new EventEmitter<Jot>();
+
+  @Output()
+  hidden: EventEmitter<void> = new EventEmitter<void>();
+
+  @Output()
+  shown: EventEmitter<void> = new EventEmitter<void>();
 
   @ViewChild('searchInput', { static: true })
   private readonly searchInput: ElementRef<HTMLInputElement>;
@@ -23,17 +33,19 @@ export class RecentJotsComponent {
   ) { }
 
   async show() {
-    this.shown = true;
+    this.visible = true;
     this.recentJots = await this.jotRepository.findByRecent();
     this.cdRef.markForCheck();
 
+    this.shown.emit();
     setTimeout(() => {
       this.searchInput.nativeElement.focus();
     }, 200);
   }
 
   async hide() {
-    this.shown = false;
+    this.visible = false;
+    this.hidden.emit();
     this.cdRef.markForCheck();
   }
 

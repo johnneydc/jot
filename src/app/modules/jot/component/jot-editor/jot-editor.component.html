@@ -14,6 +14,8 @@
     </div>
   </div>
   <md-editor
+    #editor
+
     (idle)="hasBeenIdle()"
     (keyboardShortcut)="processShortcut($event)"
     [(ngModel)]="jot.content.body"

@@ -1,6 +1,7 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {Jot} from '../../model/jot';
 import {Command} from '../../shared/command';
+import {MdEditorComponent} from '../../../md-editor/components/md-editor.component';
 
 @Component({
   selector: 'jot-editor',
@@ -24,6 +25,9 @@ export class JotEditorComponent {
   @Output()
   command: EventEmitter<Command> = new EventEmitter<Command>();
 
+  @ViewChild('editor', { static: true })
+  private readonly editor!: MdEditorComponent;
+
   hasBeenIdle() {
     this.idle.emit();
   }
@@ -37,5 +41,9 @@ export class JotEditorComponent {
     if ($event === 'ctrl+shift+k') {
       this.command.emit(Command.OPEN_RECENT);
     }
+  }
+
+  focus() {
+    this.editor.setCaretPosition();
   }
 }

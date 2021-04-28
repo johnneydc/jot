@@ -59,4 +59,8 @@ export class AppComponent implements OnInit {
     this.activeJot = $event;
     this.recents.hide();
   }
+
+  focusEditor() {
+    this.jotEditor.focus();
+  }
 }

@@ -6,6 +6,7 @@ import {MdEditorModule} from '../md-editor/md-editor.module';
 import {CoreModule} from '../core/core.module';
 import {CommonModule} from '@angular/common';
 import {RecentJotsComponent} from './component/recent-jots/recent-jots.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -17,10 +18,11 @@ import {RecentJotsComponent} from './component/recent-jots/recent-jots.component
     RecentJotsComponent
   ],
   imports: [
-    FormsModule,
-    MdEditorModule,
-    CoreModule,
-    CommonModule
+      FormsModule,
+      MdEditorModule,
+      CoreModule,
+      CommonModule,
+      FontAwesomeModule
   ],
   providers: [JotRepository]
 })

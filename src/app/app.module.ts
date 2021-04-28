@@ -9,6 +9,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {JotModule} from './modules/jot/jot.module';
 import {CoreModule} from './modules/core/core.module';
 import {IdbService} from './modules/core/services/idb.service';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 export function initApp(idbService: IdbService) {
   return (): Promise<any> => {

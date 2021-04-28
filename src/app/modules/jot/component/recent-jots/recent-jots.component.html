@@ -1,10 +1,23 @@
-<div class="recent-jots--container" [class.shown]="shown" (click)="hideDialog($event)">
+<div class="recent-jots--container" [class.shown]="visible">
   <div class="recent-jots--dialog">
+    <div class="recent-jots--title-bar">
+      <div class="recent-jots--title-bar--title">
+        Recent Jots
+      </div>
+      <div class="recent-jots--title-bar--buttons">
+        <button class="recent-jots--title-bar--buttons--close" (click)="hide()">
+          &times;
+        </button>
+      </div>
+    </div>
     <div class="recent-jots--search">
       <input #searchInput class="recent-jots--search-input" type="text" placeholder="Search...">
     </div>
     <div class="recent-jots--list">
       <div (click)="emitSelected(jot)" *ngFor="let jot of recentJots" class="recent-jots--list-item">
+        <button class="recent-jots--list-item--delete-btn">
+
+        </button>
         <div class="recent-jots--list-item--title">
           {{ jot.meta.title }}
         </div>
