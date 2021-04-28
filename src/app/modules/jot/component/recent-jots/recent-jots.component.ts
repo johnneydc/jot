@@ -23,6 +23,9 @@ export class RecentJotsComponent {
   @ViewChild('searchInput', { static: true })
   private readonly searchInput: ElementRef<HTMLInputElement>;
 
+  @ViewChild('closeBtn', { static: true })
+  private readonly closeBtn: ElementRef<HTMLDivElement>;
+
   constructor(
     private readonly jotRepository: JotRepository,
     private readonly cdRef: ChangeDetectorRef
@@ -34,8 +37,10 @@ export class RecentJotsComponent {
     this.cdRef.markForCheck();
 
     this.shown.emit();
+
     setTimeout(() => {
-      this.searchInput.nativeElement.focus();
+      // this.searchInput.nativeElement.focus();
+      this.closeBtn.nativeElement.focus();
     }, 200);
   }
 
@@ -52,5 +57,11 @@ export class RecentJotsComponent {
   hideDialog($event: MouseEvent) {
     $event.stopImmediatePropagation();
     this.hide();
+  }
+
+  handleKeydown(ev: KeyboardEvent) {
+    if (ev.key === 'Escape') {
+      this.hide();
+    }
   }
 }

@@ -5,7 +5,7 @@
         Recent Jots
       </div>
       <div class="recent-jots--title-bar--buttons">
-        <button class="recent-jots--title-bar--buttons--close" (click)="hide()">
+        <button #closeBtn (keydown)="handleKeydown($event)" class="recent-jots--title-bar--buttons--close" (click)="hide()">
           &times;
         </button>
       </div>
