@@ -1,20 +1,8 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, Output, ViewChild} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {fromEvent, Subject} from 'rxjs';
-import {debounceTime, first} from 'rxjs/operators';
-import {toBase64} from '../../core/utils/base64';
-import {isValidHttpUrl} from '../../core/utils/isUrl';
-import {
-  boldSelection,
-  canBeAnImage,
-  canBeAUrl,
-  insertImage,
-  insertLink,
-  insertTab,
-  insertText,
-  italicizeSelection,
-  parseKeyboardShortcut
-} from './utils';
+import {debounceTime} from 'rxjs/operators';
+import {boldSelection, insertImage, insertLink, insertTab, insertText, italicizeSelection, parseKeyboardShortcut} from './utils';
 import {ClipboardObject, ClipboardObjectType} from './models/ClipboardObject';
 
 @Component({
@@ -44,16 +32,8 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
   @Output()
   keyboardShortcut: EventEmitter<string> = new EventEmitter<string>();
 
-  private readonly nativeEditorShortcuts: Map<string, (ev: KeyboardEvent) => void> = new Map<string, () => void>();
-
   onChange: (_: any) => void = (_: any) => {};
   onTouched: () => void = () => {};
-
-  constructor() {
-    this.nativeEditorShortcuts.set('ctrl+b', boldSelection);
-    this.nativeEditorShortcuts.set('ctrl+i', italicizeSelection);
-    this.nativeEditorShortcuts.set('tab', insertTab);
-  }
 
   registerOnChange(fn: any): void { this.onChange = fn; }
   registerOnTouched(fn: any): void { this.onTouched = fn; }
@@ -117,8 +97,17 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
   handleKeydown(ev: KeyboardEvent) {
     const shortcut = parseKeyboardShortcut(ev);
 
-    if (this.nativeEditorShortcuts.has(shortcut)) {
-      this.nativeEditorShortcuts.get(shortcut).apply(ev);
+    switch (shortcut) {
+      case 'ctrl+b':
+        document.execCommand('bold');
+        break;
+      case 'ctrl+i':
+        document.execCommand('italic');
+        break;
+      case 'tab':
+        ev.preventDefault();
+        document.execCommand('insertHTML', false, '&nbsp;&nbsp;');
+        break;
     }
 
     if (ev.ctrlKey) {
