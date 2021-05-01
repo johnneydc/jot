@@ -1,0 +1,7 @@
+@import "colors";
+
+$textColor: white;
+$bgColor: $navy;
+
+$textColor1: transparentize($textColor, 0.8);
+$textColor2: transparentize($textColor, 0.5)

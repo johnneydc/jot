@@ -9,7 +9,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {JotModule} from './modules/jot/jot.module';
 import {CoreModule} from './modules/core/core.module';
 import {IdbService} from './modules/core/services/idb.service';
-import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 export function initApp(idbService: IdbService) {
   return (): Promise<any> => {
@@ -28,7 +28,8 @@ export function initApp(idbService: IdbService) {
 
     JotModule,
     CoreModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NoopAnimationsModule
   ],
   providers: [
     {

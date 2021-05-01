@@ -1,5 +1,7 @@
+@import "variables";
+
 .rt-editor-input {
-  padding: 16px 8px 16px 24px;
+  padding: 16px 8px 16px 32px;
   box-sizing: border-box;
   height: calc(100vh - 70px);
   overflow-x: hidden;
@@ -12,17 +14,23 @@
   }
 
   &::-webkit-scrollbar {
-    background: #333333;
+    background: $bgColor;
     width: 8px;
     padding: 2px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #555;
+    background: $textColor2;
     border-radius: 4px;
   }
 
   a[href] {
-    color: mediumaquamarine;
+    color: $yellow;
   }
+}
+
+[contentEditable=true]:empty:before{
+  content:attr(data-placeholder);
+  color: $textColor1;
+  font-style:italic;
 }

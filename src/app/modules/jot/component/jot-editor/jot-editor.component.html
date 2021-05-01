@@ -1,14 +1,25 @@
 <div class="layout">
   <div class="header">
-    <span class="saving-icon">
-      <input type="checkbox" [checked]="saved">
+    <span class="status-icon">
+      <ng-container *ngIf="!isTemporary">
+        <ng-container *ngIf="jot.id">
+          <mat-icon title="Saving.." *ngIf="!saved" class="saving">sync</mat-icon>
+          <mat-icon title="Saved" *ngIf="saved" class="saved">done_all</mat-icon>
+        </ng-container>
+        <ng-container *ngIf="!jot.id">
+          <mat-icon class="new">article</mat-icon>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="isTemporary">
+          <mat-icon class="new">sync_disabled</mat-icon>
+      </ng-container>
     </span>
     <input class="title-input" [(ngModel)]="jot.meta.title" type="text" />
     <div class="date-modified-display">
       Modified {{ jot.meta.dateModified | relativeTime }}
     </div>
     <div class="tmp-toggle-btn-box">
-      <button class="tmp-toggle-btn" [class.checked]="isTemporary" (click)="toggleTemporary()">
+      <button tabindex="-1" class="tmp-toggle-btn" [class.checked]="isTemporary" (click)="toggleTemporary()">
         TMP
       </button>
     </div>

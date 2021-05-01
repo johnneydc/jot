@@ -33,7 +33,7 @@ export class JotMeta {
 
   static ForNow() {
     const now = new Date();
-    const title = `Unsaved ${formatDate(now, 'MMM d, y h:mm a', 'en')}`;
+    const title = `Jot ${formatDate(now, 'MMM d, y h:mm a', 'en')}`;
     return new JotMeta(title, now, now, '');
   }
 }

@@ -2,10 +2,13 @@ import {NgModule} from '@angular/core';
 import {IdbService} from './services/idb.service';
 import {RelativeTimePipe} from './pipes/relativeTime.pipe';
 import {TruncateTagsPipe} from './pipes/truncateTags.pipe';
+import {MatSnackBarModule} from '@angular/material';
+import {ToastService} from './services/toast.service';
 
 @NgModule({
-  providers: [IdbService],
+  providers: [IdbService, ToastService],
   declarations: [RelativeTimePipe, TruncateTagsPipe],
-  exports: [RelativeTimePipe, TruncateTagsPipe]
+  exports: [RelativeTimePipe, TruncateTagsPipe],
+  imports: [MatSnackBarModule]
 })
 export class CoreModule { }

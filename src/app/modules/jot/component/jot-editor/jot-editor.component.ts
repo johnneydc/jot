@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {Jot} from '../../model/jot';
 import {Command} from '../../shared/command';
 import {MdEditorComponent} from '../../../md-editor/components/md-editor.component';
+import {ToastService} from '../../../core/services/toast.service';
 
 @Component({
   selector: 'jot-editor',
@@ -28,6 +29,10 @@ export class JotEditorComponent {
   @ViewChild('editor', { static: true })
   private readonly editor!: MdEditorComponent;
 
+  constructor(
+    private readonly toastService: ToastService
+  ) { }
+
   hasBeenIdle() {
     this.idle.emit();
   }
@@ -35,6 +40,7 @@ export class JotEditorComponent {
   toggleTemporary() {
     this.isTemporary = !this.isTemporary;
     this.isTemporaryToggled.emit(this.isTemporary);
+    this.toastService.show(`Auto-saving toggled ${this.isTemporary ? 'off' : 'on'}.`);
   }
 
   processShortcut($event: string) {

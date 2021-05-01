@@ -1,13 +1,16 @@
+@import "variables";
+@import "colors";
+
 .header {
   height: 50px;
   display: grid;
   grid-template-rows: 30px 20px;
-  grid-template-columns: 24px auto 100px;
+  grid-template-columns: 32px auto 100px;
   align-items: center;
   box-sizing: border-box;
 }
 
-.saving-icon {
+.status-icon {
   padding-right: 4px;
   pointer-events: none;
   grid-row: 1;
@@ -36,7 +39,7 @@
   grid-row: 2;
   grid-column: 2;
   font-size: 12px;
-  color: #aaa;
+  color: $textColor2;
   font-style: italic;
 }
 
@@ -49,15 +52,40 @@
 
 .tmp-toggle-btn {
   background: transparent;
-  border: 1px solid #555;
+  border: 1px solid $textColor1;
   border-radius: 4px;
   padding: 2px 4px;
-  color: #555;
+  color: $textColor1;
   font-size: 12px;
 }
 
 .tmp-toggle-btn.checked {
-  border-color: mediumaquamarine;
+  border-color: $blue;
   color: #ffffff;
-  background: mediumaquamarine;
+  background: $blue;
+}
+
+.status-icon .saved {
+  color: $green!important;
+}
+
+.status-icon .saving {
+  color: $blue!important;
+  animation-name: spin;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.status-icon .new {
+  color: $textColor2!important;
+}
+
+@keyframes spin {
+  from {
+    transform:rotate(-0deg);
+  }
+  to {
+    transform:rotate(-360deg);
+  }
 }

@@ -6,7 +6,11 @@ import {MdEditorModule} from '../md-editor/md-editor.module';
 import {CoreModule} from '../core/core.module';
 import {CommonModule} from '@angular/common';
 import {RecentJotsComponent} from './component/recent-jots/recent-jots.component';
-import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {faCheckCircle} from '@fortawesome/free-regular-svg-icons/faCheckCircle';
+import {MatIconModule} from '@angular/material';
+
+library.add(faCheckCircle);
 
 @NgModule({
   declarations: [
@@ -18,11 +22,11 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     RecentJotsComponent
   ],
   imports: [
-      FormsModule,
-      MdEditorModule,
-      CoreModule,
-      CommonModule,
-      FontAwesomeModule
+    FormsModule,
+    MdEditorModule,
+    CoreModule,
+    CommonModule,
+    MatIconModule
   ],
   providers: [JotRepository]
 })

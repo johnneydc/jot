@@ -1,9 +1,11 @@
 <div #editable class="rt-editor-input"
      contenteditable="true"
      spellcheck="false"
-    (change)="updateChanges()"
+    (input)="updateChanges()"
 
     (paste)="handlePaste($event)"
     (focus)="handleFocus($event)"
-    (keydown)="handleKeydown($event)">
+    (keydown)="handleKeydown($event)"
+
+    data-placeholder="Jot it down...">
 </div>
