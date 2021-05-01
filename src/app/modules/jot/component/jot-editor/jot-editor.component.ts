@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {Jot} from '../../model/jot';
 import {Command} from '../../shared/command';
-import {MdEditorComponent} from '../../../md-editor/components/md-editor.component';
+import {MdEditorComponent, ShortcutEvent} from '../../../md-editor/components/md-editor.component';
 import {ToastService} from '../../../core/services/toast.service';
 
 @Component({
@@ -24,7 +24,7 @@ export class JotEditorComponent {
   isTemporary = false;
 
   @Output()
-  command: EventEmitter<Command> = new EventEmitter<Command>();
+  command: EventEmitter<CommandEvent> = new EventEmitter<CommandEvent>();
 
   @ViewChild('editor', { static: true })
   private readonly editor!: MdEditorComponent;
@@ -43,13 +43,31 @@ export class JotEditorComponent {
     this.toastService.show(`Auto-saving toggled ${this.isTemporary ? 'off' : 'on'}.`);
   }
 
-  processShortcut($event: string) {
-    if ($event === 'ctrl+shift+k') {
-      this.command.emit(Command.OPEN_RECENT);
+  processShortcut({shortcut, event}: ShortcutEvent) {
+    switch (shortcut) {
+      case 'ctrl+shift+k':
+        this.command.emit({
+          command: Command.OPEN_RECENT, event
+        });
+        break;
+      case 'ctrl+j':
+        this.command.emit({
+          command: Command.NEW_JOT, event
+        });
+        break;
+      case 'ctrl+shift+j':
+        this.command.emit({
+          command: Command.NEW_TEMPORARY_JOT, event
+        });
     }
   }
 
   focus() {
     this.editor.setCaretPosition();
   }
+}
+
+export interface CommandEvent {
+  command: Command;
+  event: Event;
 }

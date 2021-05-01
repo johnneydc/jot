@@ -30,7 +30,7 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
   idle: EventEmitter<void> = new EventEmitter<void>();
 
   @Output()
-  keyboardShortcut: EventEmitter<string> = new EventEmitter<string>();
+  keyboardShortcut: EventEmitter<ShortcutEvent> = new EventEmitter<ShortcutEvent>();
 
   onChange: (_: any) => void = (_: any) => {};
   onTouched: () => void = () => {};
@@ -116,7 +116,10 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
   }
 
   private emitKeyboardShortcut(ev: KeyboardEvent) {
-    this.keyboardShortcut.emit(parseKeyboardShortcut(ev));
+    this.keyboardShortcut.emit({
+      event: ev,
+      shortcut: parseKeyboardShortcut(ev)
+    });
   }
 
   private listenForIdleness() {
@@ -134,4 +137,9 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
         this.setCaretPosition();
       });
   }
+}
+
+export interface ShortcutEvent {
+  shortcut: string;
+  event: Event;
 }

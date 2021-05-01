@@ -1,13 +1,14 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {Jot} from './modules/jot/model/jot';
 import {JotRepository} from './modules/jot/repository/jot.repository';
-import {JotEditorComponent} from './modules/jot/component/jot-editor/jot-editor.component';
+import {CommandEvent, JotEditorComponent} from './modules/jot/component/jot-editor/jot-editor.component';
 import {Command} from './modules/jot/shared/command';
 import {RecentJotsComponent} from './modules/jot/component/recent-jots/recent-jots.component';
 import {v4} from 'uuid';
 import {wait} from './modules/core/utils/wait';
 import {MatSnackBar} from '@angular/material';
 import {ToastService} from './modules/core/services/toast.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -27,10 +28,18 @@ export class AppComponent implements OnInit {
 
   constructor(
     private readonly jotRepository: JotRepository,
-    private readonly toastService: ToastService
+    private readonly toastService: ToastService,
+    private readonly route: ActivatedRoute
   ) { }
 
   async ngOnInit() {
+    this.route.queryParamMap.subscribe(params => {
+      const temp = params.get('temporary');
+
+      if (temp) {
+        this.jotEditor.toggleTemporary();
+      }
+    });
     this.activeJot = Jot.New();
   }
 
@@ -56,9 +65,18 @@ export class AppComponent implements OnInit {
     this.saved = false;
   }
 
-  handleCommand(cmd: Command) {
-    if (cmd === Command.OPEN_RECENT) {
-      this.recents.show();
+  handleCommand({command, event}: CommandEvent) {
+    switch (command) {
+      case Command.OPEN_RECENT:
+        this.recents.show();
+        break;
+      case Command.NEW_JOT:
+        this.openNewJot();
+        break;
+      case Command.NEW_TEMPORARY_JOT:
+        this.openNewTemporaryJot();
+        event.preventDefault();
+        break;
     }
   }
 
@@ -69,5 +87,13 @@ export class AppComponent implements OnInit {
 
   focusEditor() {
     this.jotEditor.focus();
+  }
+
+  private openNewJot() {
+    window.open(location.href);
+  }
+
+  private openNewTemporaryJot() {
+    window.open(`${location.href}?temporary=true`);
   }
 }
