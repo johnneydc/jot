@@ -123,7 +123,7 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
   }
 
   private listenForIdleness() {
-    fromEvent(this.editor.nativeElement, 'keyup')
+    fromEvent(this.editor.nativeElement, 'input')
       .pipe(debounceTime(1000))
       .subscribe(() => {
         this.idle.emit();
