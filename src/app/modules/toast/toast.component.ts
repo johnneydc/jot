@@ -64,8 +64,8 @@ export class ToastComponent implements OnInit, OnDestroy {
 
     const timeToRemoveToast = Math.min(Math.max(toast.content.length * 50, 2000), 7000);
 
-    // await time(timeToRemoveToast);
-    // await this.remove(toast);
+    await time(timeToRemoveToast);
+    await this.remove(toast);
   }
 
   ngOnDestroy() {

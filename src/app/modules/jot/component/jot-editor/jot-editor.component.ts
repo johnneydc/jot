@@ -65,10 +65,6 @@ export class JotEditorComponent {
   focus() {
     this.editor.setCaretPosition();
   }
-
-  testToast() {
-    this.toastService.show('It receives the current item and should return some value. Then the value returned by the function is compared against the value this function returned the last time. If the value changes, the differ reports a change. So if the default function returns object references, it will not match the current item if the object reference has changed. So you can provide your custom trackBy function that will return something else. For example, some key value of the object. If this key value matches the previous one, then Angular will not detect the change.');
-  }
 }
 
 export interface CommandEvent {
