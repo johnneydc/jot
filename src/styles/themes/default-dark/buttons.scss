@@ -1,0 +1,17 @@
+@import "variables";
+
+.btn-icon {
+  background: transparent;
+  height: 24px; width: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  color: $textColor;
+
+  &:active {
+    transform: scale(0.9, 0.9);
+    background: rgba(0,0,0,0.1);
+  }
+}

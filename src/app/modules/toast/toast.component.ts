@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {Toast, ToastState} from './toast';
 import {ToastService} from './toast.service';
 import {Subscription} from 'rxjs';
@@ -10,14 +10,12 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   selector: 'toast-box',
   template: `
     <div class="toast--box">
-      <ng-container *ngFor="let toast of toasts">
-        <div [@state]="toast.state" class="toast">
-          <span class="toast--text">{{ toast.content }}</span>
-          <span class="toast--close-btn--box">
-            <button class="toast--close-btn" type="button">&times;</button>
-          </span>
-        </div>
-      </ng-container>
+      <div *ngFor="let toast of toasts; trackBy: trackById" class="toast" [@state]="toast.state" >
+        <span class="toast--text">{{ toast.content }}</span>
+        <span class="toast--close-btn--box">
+          <button class="toast--close-btn" type="button">&times;</button>
+        </span>
+      </div>
     </div>
   `,
   animations: [
@@ -34,7 +32,6 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
       position: fixed;
       z-index: 1070;
       width: 100%;
-      text-align: right;
       padding: 5%;
       padding-top: 30px;
       box-sizing: border-box;
@@ -46,9 +43,11 @@ export class ToastComponent implements OnInit, OnDestroy {
 
   public toasts: Toast[] = [];
   private toastSub: Subscription;
+  public trackById = (i: number, item: Toast) => item.id;
 
   constructor(
-    private readonly toastService: ToastService
+    private readonly toastService: ToastService,
+    private readonly cdRef: ChangeDetectorRef
   ) { }
 
   async ngOnInit() {
@@ -65,8 +64,8 @@ export class ToastComponent implements OnInit, OnDestroy {
 
     const timeToRemoveToast = Math.min(Math.max(toast.content.length * 50, 2000), 7000);
 
-    await time(timeToRemoveToast);
-    await this.remove(toast);
+    // await time(timeToRemoveToast);
+    // await this.remove(toast);
   }
 
   ngOnDestroy() {
@@ -77,5 +76,6 @@ export class ToastComponent implements OnInit, OnDestroy {
     toast.state = ToastState.HIDDEN;
     await time(600);
     Arrays.remove(toast, this.toasts);
+    this.cdRef.markForCheck();
   }
 }

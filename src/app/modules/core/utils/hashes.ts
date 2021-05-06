@@ -36,7 +36,7 @@ export class Hashes {
     let result = 0;
     for (const property in obj) {
       if (obj.hasOwnProperty(property)) {
-        result += this.hashText(property + this.generate(obj[property]));
+        result += Hashes.hashText(property + Hashes.generate(obj[property]));
       }
     }
 
@@ -47,10 +47,10 @@ export class Hashes {
   public static generate(value: any): number {
     const types: any =
       {
-        string: this.hashText,
-        number: this.hashText,
-        boolean: this.hashText,
-        object: this.objectEq
+        string: Hashes.hashText,
+        number: Hashes.hashText,
+        boolean: Hashes.hashText,
+        object: Hashes.objectEq
         // functions are excluded because they are not representative of the state of an object
         // types 'undefined' or 'null' will have a hash of 0
       };

@@ -17,6 +17,8 @@
     <input class="title-input" [(ngModel)]="jot.meta.title" type="text" />
     <div class="date-modified-display">
       Modified {{ jot.meta.dateModified | relativeTime }}
+
+      <button (click)="testToast()">testtoast</button>
     </div>
     <div class="tmp-toggle-btn-box">
       <button tabindex="-1" class="tmp-toggle-btn" [class.checked]="isTemporary" (click)="toggleTemporary()">
