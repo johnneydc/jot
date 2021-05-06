@@ -4,18 +4,43 @@ import {ToastService} from './toast.service';
 import {Subscription} from 'rxjs';
 import {time} from '../core/utils/time';
 import {Arrays} from '../core/utils/arrays';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
-  selector: 'toast',
+  selector: 'toast-box',
   template: `
-    <div class="toast-container">
+    <div class="toast--box">
       <ng-container *ngFor="let toast of toasts">
-        <div class="toast">
+        <div [@state]="toast.state" class="toast">
           <span class="toast--text">{{ toast.content }}</span>
+          <span class="toast--close-btn--box">
+            <button class="toast--close-btn" type="button">&times;</button>
+          </span>
         </div>
       </ng-container>
     </div>
-  `
+  `,
+  animations: [
+    trigger('state', [
+      state(ToastState.SHOWN, style({ opacity: 1 })),
+      state(ToastState.HIDDEN, style({ opacity: 0 })),
+      transition(`${ToastState.SHOWN} => ${ToastState.HIDDEN}`, animate('100ms')),
+      transition(`${ToastState.HIDDEN} => ${ToastState.SHOWN}`, animate('50ms')),
+    ])
+  ],
+  styles: [`
+    :host {
+      background: transparent;
+      position: fixed;
+      z-index: 1070;
+      width: 100%;
+      text-align: right;
+      padding: 5%;
+      padding-top: 30px;
+      box-sizing: border-box;
+      pointer-events: none;
+    }
+  `]
 })
 export class ToastComponent implements OnInit, OnDestroy {
 
@@ -27,7 +52,7 @@ export class ToastComponent implements OnInit, OnDestroy {
   ) { }
 
   async ngOnInit() {
-    this.toastSub = this.toastService.toastQueue.asObservable()
+    this.toastSub = this.toastService.queue.asObservable()
       .subscribe(toast => this.push(toast));
   }
 

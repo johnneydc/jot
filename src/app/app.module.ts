@@ -10,6 +10,7 @@ import {JotModule} from './modules/jot/jot.module';
 import {CoreModule} from './modules/core/core.module';
 import {IdbService} from './modules/core/services/idb.service';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {ToastModule} from './modules/toast/toast.module';
 
 export function initApp(idbService: IdbService) {
   return (): Promise<any> => {
@@ -21,16 +22,17 @@ export function initApp(idbService: IdbService) {
   declarations: [
     AppComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
 
-    JotModule,
-    CoreModule,
-    ReactiveFormsModule,
-    NoopAnimationsModule
-  ],
+        JotModule,
+        CoreModule,
+        ReactiveFormsModule,
+        NoopAnimationsModule,
+        ToastModule
+    ],
   providers: [
     {
       provide: APP_INITIALIZER,

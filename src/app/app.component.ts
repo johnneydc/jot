@@ -6,11 +6,11 @@ import {Command} from './modules/jot/shared/command';
 import {RecentJotsComponent} from './modules/jot/component/recent-jots/recent-jots.component';
 import {v4} from 'uuid';
 import {time} from './modules/core/utils/time';
-import {ToastService} from './modules/core/services/toast.service';
 import {ActivatedRoute} from '@angular/router';
 import {debounceTime} from 'rxjs/operators';
 import {Title} from '@angular/platform-browser';
 import {environment} from '../environments/environment';
+import {ToastService} from './modules/toast/toast.service';
 
 @Component({
   selector: 'app-root',

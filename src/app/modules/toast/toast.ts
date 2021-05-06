@@ -15,5 +15,5 @@ export class Toast {
 }
 
 export enum ToastState {
-  NONE, SHOWN, HIDDEN
+  NONE = 'n', SHOWN = 's', HIDDEN = 'h'
 }
