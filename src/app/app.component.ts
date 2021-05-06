@@ -5,7 +5,7 @@ import {CommandEvent, JotEditorComponent} from './modules/jot/component/jot-edit
 import {Command} from './modules/jot/shared/command';
 import {RecentJotsComponent} from './modules/jot/component/recent-jots/recent-jots.component';
 import {v4} from 'uuid';
-import {wait} from './modules/core/utils/wait';
+import {time} from './modules/core/utils/time';
 import {ToastService} from './modules/core/services/toast.service';
 import {ActivatedRoute} from '@angular/router';
 import {debounceTime} from 'rxjs/operators';
@@ -69,7 +69,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     this.saved = false;
     await this.jotRepository.save(this.activeJot);
-    await wait(1000);
+    await time(1000);
     this.saved = true;
     this.toastService.show('Jot saved.');
   }
