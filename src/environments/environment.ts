@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   dbName: 'com.johnneydc.jot.dev:db',
-  dbVersion: 1
+  dbVersion: 1,
+  appVersion: 'Dev'
 };
 
 /*

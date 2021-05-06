@@ -8,7 +8,9 @@ import {v4} from 'uuid';
 import {wait} from './modules/core/utils/wait';
 import {ToastService} from './modules/core/services/toast.service';
 import {ActivatedRoute} from '@angular/router';
-import {debounceTime, delay} from 'rxjs/operators';
+import {debounceTime} from 'rxjs/operators';
+import {Title} from '@angular/platform-browser';
+import {environment} from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -29,7 +31,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   constructor(
     private readonly jotRepository: JotRepository,
     private readonly toastService: ToastService,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    private readonly title: Title
   ) { }
 
   async ngOnInit() {
@@ -40,7 +43,9 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.jotEditor.toggleTemporary();
       }
     });
+
     this.activeJot = Jot.New();
+    this.title.setTitle(`Jot v${environment.appVersion} | ${this.activeJot.meta.title}`);
   }
 
   async ngAfterViewInit() {
