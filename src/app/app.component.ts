@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Jot} from './modules/jot/model/jot';
 import {JotRepository} from './modules/jot/repository/jot.repository';
 import {CommandEvent, JotEditorComponent} from './modules/jot/component/jot-editor/jot-editor.component';
@@ -6,16 +6,16 @@ import {Command} from './modules/jot/shared/command';
 import {RecentJotsComponent} from './modules/jot/component/recent-jots/recent-jots.component';
 import {v4} from 'uuid';
 import {wait} from './modules/core/utils/wait';
-import {MatSnackBar} from '@angular/material';
 import {ToastService} from './modules/core/services/toast.service';
 import {ActivatedRoute} from '@angular/router';
+import {debounceTime, delay} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
 
   activeJot: Jot;
   saved = false;
@@ -41,6 +41,14 @@ export class AppComponent implements OnInit {
       }
     });
     this.activeJot = Jot.New();
+  }
+
+  async ngAfterViewInit() {
+    this.jotEditor.idle.asObservable()
+      .pipe(debounceTime(3000))
+      .subscribe(() => {
+        this.saveCurrentJot();
+      });
   }
 
   async saveCurrentJot() {
