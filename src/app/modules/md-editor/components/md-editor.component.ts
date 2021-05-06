@@ -86,12 +86,6 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
         await insertText(ev);
         break;
     }
-
-    this.setCaretPosition();
-  }
-
-  handleFocus(ev: FocusEvent) {
-    this.setCaretPosition();
   }
 
   handleKeydown(ev: KeyboardEvent) {
