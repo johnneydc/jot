@@ -1,4 +1,4 @@
-import {canBeAnImage, canBeAUrl} from '../utils';
+import {canBeAnImage, canBeAUrl} from '../util';
 
 export enum ClipboardObjectType {
   IMAGE, LINK, TEXT

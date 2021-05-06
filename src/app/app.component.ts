@@ -50,7 +50,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   async ngAfterViewInit() {
     this.jotEditor.idle.asObservable()
-      .pipe(debounceTime(3000))
+      .pipe(debounceTime(20))
       .subscribe(() => {
         this.saveCurrentJot();
       });

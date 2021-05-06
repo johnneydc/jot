@@ -2,8 +2,8 @@ import {AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, Output, 
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {fromEvent, Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
-import {boldSelection, insertImage, insertLink, insertTab, insertText, italicizeSelection, parseKeyboardShortcut} from './utils';
-import {ClipboardObject, ClipboardObjectType} from './models/ClipboardObject';
+import {insertImage, insertLink, insertText, parseKeyboardShortcut} from './util/index';
+import {ClipboardObject, ClipboardObjectType} from './model/ClipboardObject';
 
 @Component({
   selector: 'md-editor',

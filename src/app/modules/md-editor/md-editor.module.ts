@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {MdEditorComponent} from './components/md-editor.component';
+import {MdEditorComponent} from './component/md-editor.component';
 
 @NgModule({
   declarations: [MdEditorComponent],
