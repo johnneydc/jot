@@ -10,7 +10,12 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   selector: 'toast-box',
   template: `
     <div class="toast--box">
-      <div *ngFor="let toast of toasts; trackBy: trackById" class="toast" [@state]="toast.state" >
+      <div *ngFor="let toast of toasts; trackBy: trackById" class="toast" [@state]="toast.state">
+        <ng-container [ngSwitch]="toast.type">
+            <mat-icon *ngSwitchCase="'success'" class="toast--icon success">check_circle</mat-icon>
+            <mat-icon *ngSwitchCase="'error'" class="toast--icon error">error</mat-icon>
+            <mat-icon *ngSwitchCase="'info'" class="toast--icon info">info</mat-icon>
+        </ng-container>
         <span class="toast--text">{{ toast.content }}</span>
         <span class="toast--close-btn--box">
           <button class="toast--close-btn" type="button">&times;</button>

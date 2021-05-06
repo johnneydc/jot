@@ -1,16 +1,16 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {Jot} from './modules/jot/model/jot';
-import {JotRepository} from './modules/jot/repository/jot.repository';
-import {CommandEvent, JotEditorComponent} from './modules/jot/component/jot-editor/jot-editor.component';
-import {Command} from './modules/jot/shared/command';
-import {RecentJotsComponent} from './modules/jot/component/recent-jots/recent-jots.component';
+import {Jot} from '@module/jot/model/jot';
+import {JotRepository} from '@module/jot/repository/jot.repository';
+import {CommandEvent, JotEditorComponent} from '@module/jot/component/jot-editor/jot-editor.component';
+import {Command} from '@module/jot/shared/command';
+import {RecentJotsComponent} from '@module/jot/component/recent-jots/recent-jots.component';
 import {v4} from 'uuid';
-import {time} from './modules/core/utils/time';
+import {time} from '@module/core/utils/time';
 import {ActivatedRoute} from '@angular/router';
 import {debounceTime} from 'rxjs/operators';
 import {Title} from '@angular/platform-browser';
 import {environment} from '../environments/environment';
-import {ToastService} from './modules/toast/toast.service';
+import {ToastService} from '@module/toast/toast.service';
 
 @Component({
   selector: 'app-root',
@@ -50,7 +50,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   async ngAfterViewInit() {
     this.jotEditor.idle.asObservable()
-      .pipe(debounceTime(20))
+      .pipe(debounceTime(3000))
       .subscribe(() => {
         this.saveCurrentJot();
       });
@@ -71,7 +71,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     await this.jotRepository.save(this.activeJot);
     await time(1000);
     this.saved = true;
-    this.toastService.show('Jot saved.');
+    this.toastService.show('Jot saved');
   }
 
   toggleTemporary() {

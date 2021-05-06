@@ -45,6 +45,25 @@
   //word-break: break-all;
   grid-row: 1;
   grid-column: 2;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.2;
+  padding-left: 10px;
+  padding-top: 2px;
+}
+
+.toast--icon {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.toast--icon.success {
+  color: $green;
+}
+
+.toast--icon.error {
+  color: $orange;
+}
+
+.toast--icon.info {
+  color: $blue;
 }
