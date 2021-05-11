@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {IdbService} from '../../core/services/idb.service';
+import {IdbService} from '@mod/core/services/idb.service';
 import {IDBPDatabase, StoreNames} from 'idb';
-import {AppDB} from '../../core/services/schema';
-import {Repository} from '../../core/repository/repository';
-import {Jot} from '../model/jot';
+import {AppDB} from '@mod/core/services/schema';
+import {Repository} from '@mod/core/repository/repository';
+import {Jot} from '@mod/jot/model/jot';
 
 @Injectable()
 export class JotRepository extends Repository<Jot, AppDB> {
@@ -29,8 +29,7 @@ export class JotRepository extends Repository<Jot, AppDB> {
   public async findByRecent(size = 10) {
     const recentJots = await this.idb.getAllFromIndex(this.storeName(), 'by-recent');
     return recentJots
-      // @ts-ignore
-      .sort((a, b) => b.meta.dateModified - a.meta.dateModified)
+      .sort((a, b) => (b.meta.dateModified as any) - (a.meta.dateModified as any))
       .slice(0, size);
   }
 

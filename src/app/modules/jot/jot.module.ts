@@ -1,14 +1,15 @@
 import {NgModule} from '@angular/core';
-import {JotEditorComponent} from './component/jot-editor/jot-editor.component';
-import {JotRepository} from './repository/jot.repository';
-import {FormsModule} from '@angular/forms';
-import {MdEditorModule} from '../md-editor/md-editor.module';
-import {CoreModule} from '../core/core.module';
+import {CoreModule} from '@mod/core/core.module';
 import {CommonModule} from '@angular/common';
-import {RecentJotsComponent} from './component/recent-jots/recent-jots.component';
+import {MatIconModule} from '@angular/material';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faCheckCircle} from '@fortawesome/free-regular-svg-icons/faCheckCircle';
-import {MatIconModule} from '@angular/material';
+
+import {JotEditorComponent} from './comp/jot-editor/jot-editor.component';
+import {JotRepository} from './repo/jot.repository';
+import {FormsModule} from '@angular/forms';
+import {MdEditorModule} from '../md-editor/md-editor.module';
+import {RecentJotsComponent} from './comp/recent-jots/recent-jots.component';
 
 library.add(faCheckCircle);
 

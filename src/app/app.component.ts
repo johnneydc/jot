@@ -1,16 +1,16 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {Jot} from '@module/jot/model/jot';
-import {JotRepository} from '@module/jot/repository/jot.repository';
-import {CommandEvent, JotEditorComponent} from '@module/jot/component/jot-editor/jot-editor.component';
-import {Command} from '@module/jot/shared/command';
-import {RecentJotsComponent} from '@module/jot/component/recent-jots/recent-jots.component';
+import {Jot} from '@mod/jot/model/jot';
+import {JotRepository} from '@mod/jot/repo/jot.repository';
+import {CommandEvent, JotEditorComponent} from '@mod/jot/comp/jot-editor/jot-editor.component';
+import {Command} from '@mod/jot/shared/command';
+import {RecentJotsComponent} from '@mod/jot/comp/recent-jots/recent-jots.component';
 import {v4} from 'uuid';
-import {time} from '@module/core/utils/time';
+import {time} from '@mod/core/utils/time';
 import {ActivatedRoute} from '@angular/router';
 import {debounceTime} from 'rxjs/operators';
 import {Title} from '@angular/platform-browser';
 import {environment} from '../environments/environment';
-import {ToastService} from '@module/toast/toast.service';
+import {ToastService} from '@mod/toast/toast.service';
 
 @Component({
   selector: 'app-root',

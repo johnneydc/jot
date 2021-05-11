@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
-import {Jot} from '../../model/jot';
-import {JotRepository} from '../../repository/jot.repository';
+import {Jot} from '@mod/jot/model/jot';
+import {JotRepository} from '@mod/jot/repo/jot.repository';
 
 @Component({
   selector: 'recent-jots',

@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {environment} from '../../../../environments/environment';
+import {environment} from '@root/environments/environment';
 import {IDBPDatabase, openDB} from 'idb';
-import {AppDB} from './schema';
-import {JotRepository} from '../../jot/repository/jot.repository';
+import {AppDB} from '@mod/core/services/schema';
+import {JotRepository} from '@mod/jot/repo/jot.repository';
 
 @Injectable()
 export class IdbService {

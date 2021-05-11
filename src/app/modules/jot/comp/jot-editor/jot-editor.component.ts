@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {Jot} from '@module/jot/model/jot';
-import {Command} from '@module/jot/shared/command';
-import {MdEditorComponent, ShortcutEvent} from '@module/md-editor/component/md-editor.component';
-import {ToastService} from '@module/toast/toast.service';
+import {Jot} from '@mod/jot/model/jot';
+import {Command} from '@mod/jot/shared/command';
+import {MdEditorComponent, ShortcutEvent} from '@mod/md-editor/component/md-editor.component';
+import {ToastService} from '@mod/toast/toast.service';
 
 @Component({
   selector: 'jot-editor',
