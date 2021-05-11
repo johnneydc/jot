@@ -1,5 +1,12 @@
 @import "variables";
 
+.base-btn {
+  &:active {
+    transform: scale(0.9, 0.9);
+    background: rgba(0,0,0,0.1);
+  }
+}
+
 .btn-icon {
   background: transparent;
   height: 24px; width: 24px;
@@ -10,8 +17,5 @@
   border-radius: 4px;
   color: $textColor;
 
-  &:active {
-    transform: scale(0.9, 0.9);
-    background: rgba(0,0,0,0.1);
-  }
+  @extend .base-btn;
 }

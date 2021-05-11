@@ -1,5 +1,6 @@
 @import "variables";
 @import "colors";
+@import "buttons";
 
 .header {
   height: 50px;
@@ -88,4 +89,12 @@
   to {
     transform:rotate(-360deg);
   }
+}
+
+.editor--tts-btn {
+  background: none;
+  border: none;
+  color: $textColor;
+
+  @extend .base-btn;
 }

@@ -10,13 +10,15 @@ import {JotRepository} from './repo/jot.repository';
 import {FormsModule} from '@angular/forms';
 import {MdEditorModule} from '../md-editor/md-editor.module';
 import {RecentJotsComponent} from './comp/recent-jots/recent-jots.component';
+import {ReaderComponent} from '@mod/jot/comp/reader/reader.component';
 
 library.add(faCheckCircle);
 
 @NgModule({
   declarations: [
     JotEditorComponent,
-    RecentJotsComponent
+    RecentJotsComponent,
+    ReaderComponent
   ],
   exports: [
     JotEditorComponent,

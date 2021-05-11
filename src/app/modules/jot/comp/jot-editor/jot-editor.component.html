@@ -1,3 +1,4 @@
+<reader #reader [jot]="jot"></reader>
 <div class="layout">
   <div class="header">
     <span class="status-icon">
@@ -19,9 +20,12 @@
       Modified {{ jot.meta.dateModified | relativeTime }}
     </div>
     <div class="tmp-toggle-btn-box">
-      <button tabindex="-1" class="tmp-toggle-btn" [class.checked]="isTemporary" (click)="toggleTemporary()">
-        TMP
+      <button tabindex="-1" class="editor--tts-btn" (click)="reader.read()" title="Read aloud">
+        <mat-icon>record_voice_over</mat-icon>
       </button>
+<!--      <button tabindex="-1" class="tmp-toggle-btn" [class.checked]="isTemporary" (click)="toggleTemporary()">-->
+<!--        TMP-->
+<!--      </button>-->
     </div>
   </div>
   <md-editor
