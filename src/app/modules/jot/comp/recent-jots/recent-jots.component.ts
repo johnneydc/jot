@@ -39,7 +39,6 @@ export class RecentJotsComponent {
     this.shown.emit();
 
     setTimeout(() => {
-      // this.searchInput.nativeElement.focus();
       this.closeBtn.nativeElement.focus();
     }, 200);
   }
@@ -63,5 +62,12 @@ export class RecentJotsComponent {
     if (ev.key === 'Escape') {
       this.hide();
     }
+  }
+
+  async deleteJot($event: MouseEvent, jot: Jot) {
+    $event.stopImmediatePropagation();
+    await this.jotRepository.delete(jot);
+    this.recentJots = await this.jotRepository.findByRecent();
+    this.cdRef.markForCheck();
   }
 }

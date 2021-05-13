@@ -15,8 +15,8 @@
     </div>
     <div class="recent-jots--list">
       <div (click)="emitSelected(jot)" *ngFor="let jot of recentJots" class="recent-jots--list-item">
-        <button class="recent-jots--list-item--delete-btn">
-
+        <button (click)="deleteJot($event, jot)" class="recent-jots--list-item--delete-btn">
+          <mat-icon>delete_forever</mat-icon>
         </button>
         <div class="recent-jots--list-item--title">
           {{ jot.meta.title }}
