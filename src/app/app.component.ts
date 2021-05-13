@@ -90,6 +90,9 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.openNewTemporaryJot();
         event.preventDefault();
         break;
+      case Command.SAVE_CURRENT:
+        this.saveCurrentJot();
+        break;
     }
   }
 

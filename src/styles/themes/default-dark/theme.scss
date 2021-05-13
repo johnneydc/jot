@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Recursive:wght@400;700&display=swap');
 
 @import "variables";
 @import "layout";
@@ -12,12 +12,12 @@ body {
   height: 100vh;
   width: 100vw;
   font-size: 10pt;
-  font-family: 'Work Sans', monospace;
+  font-family: 'Recursive', monospace;
 }
 
 span, div, input, select, textarea {
   color: $textColor;
-  font-family: 'Work Sans', monospace;
+  font-family: 'Recursive', monospace;
 }
 
 .header, .rt-editor-input {

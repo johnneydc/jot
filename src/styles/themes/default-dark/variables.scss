@@ -1,7 +1,11 @@
 @import "colors";
 
-$textColor: white;
-$bgColor: $navy;
+$textColor: #FAFAFA;
+$bgColor: #263238;
 
 $textColor1: transparentize($textColor, 0.8);
-$textColor2: transparentize($textColor, 0.5)
+$textColor2: transparentize($textColor, 0.5);
+
+$highLight: #9E9D24;
+$danger: #9E9D24;
+$success: #9E9D24;

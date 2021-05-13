@@ -1,5 +1,4 @@
 @import "variables";
-@import "colors";
 @import "buttons";
 
 .header {
@@ -60,18 +59,12 @@
   font-size: 12px;
 }
 
-.tmp-toggle-btn.checked {
-  border-color: $blue;
-  color: #ffffff;
-  background: $blue;
-}
-
 .status-icon .saved {
-  color: $green!important;
+  color: $textColor2!important;
 }
 
 .status-icon .saving {
-  color: $blue!important;
+  color: $textColor2!important;
   animation-name: spin;
   animation-duration: 3s;
   animation-iteration-count: infinite;

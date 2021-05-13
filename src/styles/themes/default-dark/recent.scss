@@ -1,5 +1,5 @@
 @import "buttons";
-@import "colors";
+@import "variables";
 
 .recent-jots--container {
   position: fixed;
@@ -19,7 +19,7 @@
 }
 
 .recent-jots--dialog {
-  background: $navy;
+  background: $bgColor;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 10px 50px rgba(0,0,0,0.2);
   width: 450px;
   padding: 8px 0;
@@ -57,17 +57,11 @@
 
   &:hover {
     .recent-jots--list-item--title {
-      color: $blue;
+      color: $highLight;
     }
 
     background: rgba(0, 0, 0, 0.1);
   }
-}
-
-.recent-jots--list-item--delete-btn {
-  color: crimson;
-  position: absolute;
-  background: transparent;
 }
 
 .recent-jots--list-item--title {
@@ -83,7 +77,7 @@
 }
 
 .recent-jots--list-item--date-modified {
-  color: #888888;
+  color: $textColor1;
   font-size: 12px;
 }
 
@@ -110,18 +104,18 @@
 }
 
 .recent-jots--list-item:hover .recent-jots--list-item--delete-btn {
-  //display: inline-block!important;
   visibility: visible;
   pointer-events: auto;
+  opacity: 1;
 }
 
 .recent-jots--list-item--delete-btn {
-  //display: none!important;
   position: absolute;
-  background: $orange!important;
+  background: $danger!important;
   right: 8px; top: 8px;
   visibility: hidden;
   pointer-events: none;
+  opacity: 0;
 
   @extend .btn-icon;
 }

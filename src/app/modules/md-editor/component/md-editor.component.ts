@@ -4,6 +4,7 @@ import {fromEvent, Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import {insertImage, insertLink, insertText, parseKeyboardShortcut} from './util/index';
 import {ClipboardObject, ClipboardObjectType} from './model/ClipboardObject';
+import {ToastService} from '@mod/toast/toast.service';
 
 @Component({
   selector: 'md-editor',
@@ -37,6 +38,10 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
 
   registerOnChange(fn: any): void { this.onChange = fn; }
   registerOnTouched(fn: any): void { this.onTouched = fn; }
+
+  constructor(
+    private toastService: ToastService
+  ) { }
 
   writeValue(obj: string): void {
     const stringVal = obj || '';
@@ -93,14 +98,19 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
 
     switch (shortcut) {
       case 'ctrl+b':
+        ev.preventDefault();
         document.execCommand('bold');
         break;
       case 'ctrl+i':
+        ev.preventDefault();
         document.execCommand('italic');
         break;
       case 'tab':
         ev.preventDefault();
-        document.execCommand('insertHTML', false, '&nbsp;&nbsp;');
+        document.execCommand('insertHTML', false, '&emsp;');
+        break;
+      case 'ctrl+s':
+        ev.preventDefault();
         break;
     }
 

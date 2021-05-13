@@ -59,6 +59,12 @@ export class JotEditorComponent {
         this.command.emit({
           command: Command.NEW_TEMPORARY_JOT, event
         });
+        break;
+      case 'ctrl+s':
+        this.command.emit({
+          command: Command.SAVE_CURRENT, event
+        });
+        break;
     }
   }
 
