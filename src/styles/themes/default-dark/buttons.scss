@@ -5,6 +5,7 @@
 
   &:hover, &:focus {
     transform: scale(1.05, 1.05);
+    border-color: $highLight;
   }
 
   &:active {

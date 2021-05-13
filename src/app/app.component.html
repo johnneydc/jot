@@ -2,6 +2,8 @@
 <recent-jots #recents
    (selected)="setActive($event)"
    (hidden)="focusEditor()"
+
+   (command)="handleCommand($event)"
 ></recent-jots>
 <jot-editor #editor
     [jot]="activeJot"

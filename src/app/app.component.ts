@@ -78,7 +78,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.saved = false;
   }
 
-  handleCommand({command, event}: CommandEvent) {
+  async handleCommand({command, event}: CommandEvent) {
     switch (command) {
       case Command.OPEN_RECENT:
         this.recents.show();

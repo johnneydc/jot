@@ -1,6 +1,8 @@
 import {ChangeDetectorRef, Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 import {Jot} from '@mod/jot/model/jot';
 import {JotRepository} from '@mod/jot/repo/jot.repository';
+import {Command} from '@mod/jot/shared/command';
+import {CommandEvent} from '@mod/jot/comp/jot-editor/jot-editor.component';
 
 @Component({
   selector: 'recent-jots',
@@ -19,6 +21,9 @@ export class RecentJotsComponent {
 
   @Output()
   shown: EventEmitter<void> = new EventEmitter<void>();
+
+  @Output()
+  command: EventEmitter<CommandEvent> =  new EventEmitter<CommandEvent>();
 
   @ViewChild('searchInput', { static: true })
   private readonly searchInput: ElementRef<HTMLInputElement>;
@@ -58,8 +63,16 @@ export class RecentJotsComponent {
     this.hide();
   }
 
-  handleKeydown(ev: KeyboardEvent) {
-    if (ev.key === 'Escape') {
+  handleKeydown(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      this.hide();
+    }
+
+    if (event.key === 'n') {
+      event.preventDefault();
+      this.command.emit({
+        command: Command.NEW_JOT, event
+      });
       this.hide();
     }
   }
