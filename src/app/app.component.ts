@@ -95,6 +95,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   setActive($event: Jot) {
     this.activeJot = $event;
+    this.jotEditor.saved = true;
     this.recents.hide();
   }
 
