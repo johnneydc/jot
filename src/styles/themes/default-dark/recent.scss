@@ -26,10 +26,17 @@
   border: 1px solid rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   position: relative;
+  height: calc(100vh - 40px);
+  max-height: 500px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 20px 36px auto;
 }
 
 .recent-jots--search {
   padding: 8px;
+  grid-row: 2;
 }
 
 .recent-jots--search-input {
@@ -49,6 +56,14 @@
 
 .recent-jots--list {
   //padding-top: 8px;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: visible;
+  grid-row: 3;
+
+  .cdk-virtual-scroll-content-wrapper {
+    width: 100%;
+  }
 }
 
 .recent-jots--list-item {
@@ -56,6 +71,8 @@
   cursor: pointer;
   position: relative;
   user-select: none;
+  width: 100%;
+  box-sizing: border-box;
 
   &:hover {
     .recent-jots--list-item--title {
@@ -94,6 +111,7 @@
 .recent-jots--title-bar--title {
   font-weight: bold;
   font-size: 14px;
+  grid-row: 1;
 }
 
 .recent-jots--title-bar--buttons--close {

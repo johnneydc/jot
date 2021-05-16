@@ -22,3 +22,14 @@ span, div, input, select, textarea {
 .header, .rt-editor-input {
   width: 100%;
 }
+
+::-webkit-scrollbar {
+  background: $bgColor;
+  width: 8px;
+  padding: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $textColor2;
+  border-radius: 4px;
+}

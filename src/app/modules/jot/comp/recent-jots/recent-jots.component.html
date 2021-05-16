@@ -14,8 +14,8 @@
       <span class="tx-highlight tx-l">To open a new Jot press 'n'.</span>
       <input #searchInput class="recent-jots--search-input" type="text" placeholder="Search...">
     </div>
-    <div class="recent-jots--list">
-      <div (click)="emitSelected(jot)" *ngFor="let jot of recentJots" class="recent-jots--list-item">
+    <cdk-virtual-scroll-viewport class="recent-jots--list" [itemSize]="recentJots.length">
+      <div *cdkVirtualFor="let jot of recentJots" (click)="emitSelected(jot)" class="recent-jots--list-item">
         <button (click)="deleteJot($event, jot)" class="recent-jots--list-item--delete-btn">
           &times;
         </button>
@@ -29,6 +29,6 @@
           {{ jot.meta.dateModified | relativeTime }}
         </div>
       </div>
-    </div>
+    </cdk-virtual-scroll-viewport>
   </div>
 </div>

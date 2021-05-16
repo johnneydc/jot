@@ -10,7 +10,7 @@ import {CommandEvent} from '@mod/jot/comp/jot-editor/jot-editor.component';
 })
 export class RecentJotsComponent {
 
-  recentJots: Jot[];
+  recentJots: Jot[] = [];
   visible = false;
 
   @Output()

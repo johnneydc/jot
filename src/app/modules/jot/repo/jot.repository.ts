@@ -30,7 +30,7 @@ export class JotRepository extends Repository<Jot, AppDB> {
     const recentJots = await this.idb.getAllFromIndex(this.storeName(), 'by-recent');
     return recentJots
       .sort((a, b) => (b.meta.dateModified as any) - (a.meta.dateModified as any))
-      .slice(0, size);
+      .slice();
   }
 
   protected deserialize(obj: Partial<Jot> | undefined): Jot {

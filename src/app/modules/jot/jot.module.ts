@@ -11,6 +11,7 @@ import {FormsModule} from '@angular/forms';
 import {MdEditorModule} from '../md-editor/md-editor.module';
 import {RecentJotsComponent} from './comp/recent-jots/recent-jots.component';
 import {ReaderComponent} from '@mod/jot/comp/reader/reader.component';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 library.add(faCheckCircle);
 
@@ -24,13 +25,14 @@ library.add(faCheckCircle);
     JotEditorComponent,
     RecentJotsComponent
   ],
-  imports: [
-    FormsModule,
-    MdEditorModule,
-    CoreModule,
-    CommonModule,
-    MatIconModule
-  ],
+    imports: [
+      FormsModule,
+      MdEditorModule,
+      CoreModule,
+      CommonModule,
+      MatIconModule,
+      ScrollingModule
+    ],
   providers: [JotRepository]
 })
 export class JotModule { }

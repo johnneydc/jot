@@ -13,17 +13,6 @@
     outline: none;
   }
 
-  &::-webkit-scrollbar {
-    background: $bgColor;
-    width: 8px;
-    padding: 2px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: $textColor2;
-    border-radius: 4px;
-  }
-
   a[href] {
     color: $highLight;
   }
