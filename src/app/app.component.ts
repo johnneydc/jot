@@ -110,7 +110,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     const x = (window.screenX || window.screenLeft || 0) + (30 || 0);
     const y = (window.screenY || window.screenTop || 0) + (30 || 0);
     const params = `status=no,location=no,toolbar=no,menubar=no,width=800,height=600,top=${y},left=${x}`;
-    open('/', this.activeJot.meta.title, params);
+    open('/', this.activeJot.meta.title + v4(), params);
   }
 
   private openNewTemporaryJot() {
