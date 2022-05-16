@@ -24,7 +24,7 @@ export class MdEditorComponent implements AfterViewInit, ControlValueAccessor {
 
   value$: Subject<string> = new Subject<string>();
 
-  @ViewChild('editable', {static: false})
+  @ViewChild('editable')
   private readonly editor!: ElementRef<HTMLDivElement>;
 
   @Output()
