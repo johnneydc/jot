@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {ToastComponent} from './toast.component';
 import {CommonModule} from '@angular/common';
 import {ToastService} from './toast.service';
-import {MatIconModule} from '@angular/material';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [ToastComponent],

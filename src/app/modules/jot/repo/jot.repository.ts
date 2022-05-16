@@ -8,6 +8,7 @@ import {Jot} from '@mod/jot/model/jot';
 @Injectable()
 export class JotRepository extends Repository<Jot, AppDB> {
 
+  // @ts-ignore
   private static storeName: StoreNames<AppDB> = 'jot';
 
   constructor(
@@ -38,6 +39,6 @@ export class JotRepository extends Repository<Jot, AppDB> {
   }
 
   protected storeName(): StoreNames<AppDB> {
-    return 'jot';
+    return JotRepository.storeName;
   }
 }

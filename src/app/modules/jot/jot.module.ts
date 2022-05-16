@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CoreModule} from '@mod/core/core.module';
 import {CommonModule} from '@angular/common';
-import {MatIconModule} from '@angular/material';
+import {MatIconModule} from '@angular/material/icon';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faCheckCircle} from '@fortawesome/free-regular-svg-icons/faCheckCircle';
 

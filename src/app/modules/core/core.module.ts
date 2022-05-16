@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {IdbService} from './services/idb.service';
 import {RelativeTimePipe} from './pipes/relativeTime.pipe';
 import {TruncateTagsPipe} from './pipes/truncateTags.pipe';
-import {MatSnackBarModule} from '@angular/material';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   providers: [IdbService],

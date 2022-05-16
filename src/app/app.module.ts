@@ -6,11 +6,11 @@ import {AppComponent} from './app.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {ReactiveFormsModule} from '@angular/forms';
-import {JotModule} from './modules/jot/jot.module';
-import {CoreModule} from './modules/core/core.module';
-import {IdbService} from './modules/core/services/idb.service';
+import {JotModule} from '@mod/jot/jot.module';
+import {CoreModule} from '@mod/core/core.module';
+import {IdbService} from '@mod/core/services/idb.service';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {ToastModule} from './modules/toast/toast.module';
+import {ToastModule} from '@mod/toast/toast.module';
 
 export function initApp(idbService: IdbService) {
   return (): Promise<any> => {
