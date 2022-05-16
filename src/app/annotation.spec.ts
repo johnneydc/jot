@@ -1,4 +1,4 @@
-import {async as realAsync, TestBed, TestModuleMetadata} from '@angular/core/testing';
+import { TestBed, TestModuleMetadata, waitForAsync as realAsync } from '@angular/core/testing';
 import {HttpRequest} from '@angular/common/http';
 import 'reflect-metadata';
 
